@@ -1,0 +1,84 @@
+name: qiaomu-novel-generator
+version: 1.0.0
+mode: production-lite
+language: zh-CN
+summary: 根据主题、设定、梗概或片段生成原创、完整、强钩子的中文短篇小说。
+
+triggers:
+  include:
+    - 小说
+    - 短篇小说
+    - 故事
+    - 网文样章
+    - 开篇钩子
+    - 悬念改写
+    - 人物欲望
+    - 冲突升级
+    - 对白张力
+    - 结尾余味
+    - 续写
+    - 改写
+    - 完整短篇
+    - 作家组合
+    - 叙事技法
+  exclude:
+    - 纯短剧剧本
+    - 电影剧本格式
+    - 非虚构书口播
+    - 新闻报道
+    - 学术论文
+
+inputs:
+  required:
+    - user_request
+  optional:
+    - theme
+    - character_setup
+    - synopsis
+    - existing_fragment
+    - desired_genre
+    - length
+    - author_signals
+    - forbidden_elements
+    - target_reader
+
+outputs:
+  default:
+    type: complete_short_story
+    sections:
+      - title
+      - story_body
+  sample_or_review:
+    type: story_with_self_evaluation
+    sections:
+      - input
+      - technique_mix
+      - story_body
+      - seven_part_self_evaluation
+
+quality_gates:
+  - intent_hook_selected
+  - genre_rubric_loaded
+  - first_three_paragraphs_have_disturbance
+  - protagonist_has_visible_desire
+  - conflict_escalates_at_least_three_times
+  - scenes_reveal_new_information_or_cost
+  - dialogue_contains_subtext_or_pressure
+  - imagery_is_concrete_not_decorative
+  - ending_reframes_opening
+  - feedback_classified_before_rewrite
+  - transferable_rules_not_one_off_content
+  - no_author_style_imitation
+  - no_copyrighted_scene_copy
+
+resources:
+  skill: SKILL.md
+  technique_matrix: references/technique-matrix.md
+  output_contract: references/output-contract.md
+  quality_checklist: references/quality-checklist.md
+  genre_quality_rubric: references/genre-quality-rubric.md
+  evolution_loop: references/evolution-loop.md
+  sample_wuxia_suspense: examples/sample-01-wuxia-suspense.md
+  sample_sci_fi_memory: examples/sample-02-sci-fi-memory.md
+  validator: scripts/validate_skill.py
+  story_evaluator: scripts/evaluate_story.py

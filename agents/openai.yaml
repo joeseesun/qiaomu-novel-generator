@@ -1,0 +1,7 @@
+interface:
+  display_name: "乔木小说生成器"
+  short_description: "原创中文短篇小说生成与钩子强化工作流"
+  default_prompt: "Use $qiaomu-novel-generator to turn this story idea into a complete, gripping Chinese short story."
+
+policy:
+  allow_implicit_invocation: true

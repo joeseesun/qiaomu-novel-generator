@@ -1,0 +1,37 @@
+{
+  "name": "qiaomu-novel-generator",
+  "version": "1.0.0",
+  "mode": "production-lite",
+  "language": "zh-CN",
+  "entry": "SKILL.md",
+  "interface": "agents/interface.yaml",
+  "resources": [
+    "references/technique-matrix.md",
+    "references/output-contract.md",
+    "references/quality-checklist.md",
+    "references/genre-quality-rubric.md",
+    "references/evolution-loop.md",
+    "examples/sample-01-wuxia-suspense.md",
+    "examples/sample-02-sci-fi-memory.md"
+  ],
+  "scripts": [
+    "scripts/validate_skill.py",
+    "scripts/evaluate_story.py"
+  ],
+  "quality_gates": [
+    "intent_hook_selected",
+    "genre_rubric_loaded",
+    "original_complete_short_story",
+    "technique_translation_not_author_imitation",
+    "strong_opening_hook",
+    "clear_protagonist_desire",
+    "escalating_conflict",
+    "dialogue_tension",
+    "image_driven_scene",
+    "reversal_or_suspense",
+    "ending_aftertaste",
+    "copyright_boundary",
+    "feedback_classified_before_rewrite",
+    "stable_rule_promotion_avoids_overfitting"
+  ]
+}
