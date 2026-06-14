@@ -9,7 +9,11 @@ The goal is to learn transferable craft rules without hard-coding one draft, one
 ```text
 User request
 -> Intent Hook: identify genre, reader promise, output shape, and key risk
+-> Inspiration Remix Hook: offer classic beat/style-signal options and translate references into reusable functions
+-> Story Engine Library Hook: choose emotional payoff, relationship pressure, arena, engines, ladder, and hook mode
+-> Prewrite Hook: ask compact choices or confirm strategy/outline before full drafting
 -> Draft Hook: write one complete story or revision
+-> Anti-AI Language Hook: remove formulaic AI prose before returning
 -> Quality Hook: check generic and genre-specific failure modes
 -> Rewrite Hook: fix the most damaging failure first
 -> Feedback Hook: classify user critique into reusable failure types
@@ -23,8 +27,14 @@ Classify feedback before rewriting.
 | Feedback symptom | Transferable failure type | Rewrite direction |
 |---|---|---|
 | boring, flat, no hook | weak disturbance or weak reader promise | start closer to danger, shame, desire, or irreversible loss |
+| 套路少, 什么题材都兜不住 | missing engine library | select emotional payoff, high-pressure relationship, conflict arena, plot engines, and escalation ladder before outlining |
+| 用户想借经典桥段但输出像抄袭或太像原作 | poor remix transformation | reduce source to functions, change setting/relationship/stakes/object/ending, and offer multiple inspiration choices |
+| 用户要求模仿在世作者风格 | unsafe or brittle style imitation | translate to craft sliders and clearly avoid direct distinctive-style imitation |
 | feels like an essay, report, lesson, recap, tutorial | exposition dominance | replace explanation with scene, action, conflict, object, and dialogue |
 | too much jargon or abstract language | abstraction overload | translate terms into human stakes and concrete events |
+| AI 味重, repeated "不是X而是Y", teaching tone | formulaic contrast or explanation voice | rewrite as action, image, dialogue, or consequence; target zero narration-level hits |
+| user only says "帮我生成小说" and result misses expectation | under-specified premise | ask short numbered choices, then provide strategy and outline before drafting |
+| plot direction feels wrong after full draft | skipped outline agreement | discuss reader promise, attraction strategy, and outline first; draft only after confirmation |
 | not satisfying, not爽 | missing public reversal or payoff | build a visible arena where the protagonist's value is proven |
 | protagonist feels weak or wrong | misframed character competence | distinguish true incompetence from unfamiliar rules, hidden skill, or blocked expression |
 | conflict does not escalate | flat obstacle chain | close a safe option, add time pressure, raise cost, or expose a secret |

@@ -11,6 +11,23 @@ triggers:
     - 故事
     - 网文样章
     - 开篇钩子
+    - 开篇误读
+    - 看不懂
+    - 爽点
+    - 爽文
+    - 情绪刺激
+    - 剧情套路
+    - 情节引擎
+    - 经典桥段
+    - 桥段重构
+    - 电影桥段
+    - 联网搜
+    - 搜索参考
+    - 先搜
+    - 参考作品
+    - 模仿风格
+    - 马伯庸
+    - 食神
     - 悬念改写
     - 人物欲望
     - 冲突升级
@@ -39,13 +56,20 @@ inputs:
     - desired_genre
     - length
     - author_signals
+    - classic_inspirations
     - forbidden_elements
     - target_reader
+    - emotional_payoff
+    - story_engines
+    - conflict_arena
 
 outputs:
   default:
-    type: complete_short_story
+    type: prewrite_then_complete_short_story
     sections:
+      - story_options_if_vague
+      - attraction_strategy
+      - outline
       - title
       - story_body
   sample_or_review:
@@ -58,6 +82,12 @@ outputs:
 
 quality_gates:
   - intent_hook_selected
+  - inspiration_remix_options_offered
+  - classic_beats_translated_not_copied
+  - emotional_payoff_selected
+  - story_engine_library_loaded
+  - vague_request_gets_numbered_choices
+  - attraction_strategy_and_outline_discussed_before_draft
   - genre_rubric_loaded
   - first_three_paragraphs_have_disturbance
   - protagonist_has_visible_desire
@@ -66,6 +96,8 @@ quality_gates:
   - dialogue_contains_subtext_or_pressure
   - imagery_is_concrete_not_decorative
   - ending_reframes_opening
+  - opening_semantic_clarity_gate_passed
+  - anti_ai_language_gate_passed
   - feedback_classified_before_rewrite
   - transferable_rules_not_one_off_content
   - no_author_style_imitation
@@ -74,7 +106,12 @@ quality_gates:
 resources:
   skill: SKILL.md
   technique_matrix: references/technique-matrix.md
+  inspiration_remix_playbook: references/inspiration-remix-playbook.md
+  source_research_remix: references/source-research-remix.md
+  story_engine_library: references/story-engine-library.md
+  prewrite_interview: references/prewrite-interview.md
   output_contract: references/output-contract.md
+  anti_ai_language: references/anti-ai-language.md
   quality_checklist: references/quality-checklist.md
   genre_quality_rubric: references/genre-quality-rubric.md
   evolution_loop: references/evolution-loop.md

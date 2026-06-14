@@ -72,6 +72,21 @@ HOOK_MARKERS = [
     "取消",
 ]
 
+AIISH_PATTERNS = [
+    ("not_x_but_y", r"不是[^。！？\n]{0,40}而是"),
+    ("not_about_but_about", r"不在于[^。！？\n]{0,40}在于"),
+    ("summary_ending", r"总之|综上所述|总而言之"),
+    ("teaching_transition", r"关键在于|值得注意的是|让我们|想象一个世界"),
+    ("not_only_more", r"这不仅[^。！？\n]{0,40}更是"),
+    ("meaning_slogan", r"这就是[^。！？\n]{0,30}的意义"),
+]
+
+AMBIGUOUS_OPENING_PATTERNS = [
+    ("dead_person_walking", r"死人[^。！？\n]{0,12}(走|进|来|到)"),
+    ("corpse_walking", r"尸体[^。！？\n]{0,12}(走|进|来|到)"),
+    ("dead_speaking", r"(死人|死者|尸体)[^。！？\n]{0,12}(说|问|喊|开口)"),
+]
+
 
 def count_terms(text: str, terms: list[str]) -> int:
     return sum(text.count(term) for term in terms)
@@ -79,6 +94,18 @@ def count_terms(text: str, terms: list[str]) -> int:
 
 def count_dialogue_lines(text: str) -> int:
     return sum(1 for line in text.splitlines() if "“" in line and "”" in line)
+
+
+def count_aiish_patterns(text: str) -> dict[str, int]:
+    return {name: len(re.findall(pattern, text)) for name, pattern in AIISH_PATTERNS}
+
+
+def count_ambiguous_opening_patterns(text: str) -> dict[str, int]:
+    opening = first_paragraphs(text)
+    return {
+        name: len(re.findall(pattern, opening))
+        for name, pattern in AMBIGUOUS_OPENING_PATTERNS
+    }
 
 
 def first_paragraphs(text: str, count: int = 3) -> str:
@@ -98,6 +125,11 @@ def evaluate(path: Path) -> tuple[list[str], list[str]]:
     scene_hits = count_terms(text, SCENE_MARKERS)
     dialogue_lines = count_dialogue_lines(text)
     hook_hits = count_terms(first_paragraphs(text), HOOK_MARKERS)
+    dash_hits = text.count("——")
+    aiish_hits = count_aiish_patterns(text)
+    ambiguous_opening_hits = count_ambiguous_opening_patterns(text)
+    aiish_total = sum(aiish_hits.values())
+    ambiguous_opening_total = sum(ambiguous_opening_hits.values())
 
     report = [
         f"file: {path}",
@@ -106,6 +138,11 @@ def evaluate(path: Path) -> tuple[list[str], list[str]]:
         f"abstract_term_hits: {abstract_hits} ({hits_per_100(abstract_hits, chars):.2f} per 100 chars)",
         f"scene_marker_hits: {scene_hits}",
         f"first_3_paragraph_hook_hits: {hook_hits}",
+        f"dash_hits: {dash_hits}",
+        "aiish_pattern_hits: "
+        + ", ".join(f"{name}={count}" for name, count in aiish_hits.items()),
+        "ambiguous_opening_hits: "
+        + ", ".join(f"{name}={count}" for name, count in ambiguous_opening_hits.items()),
     ]
 
     warnings = []
@@ -119,6 +156,16 @@ def evaluate(path: Path) -> tuple[list[str], list[str]]:
         warnings.append("low concrete scene marker count; add people, objects, places, or actions")
     if hook_hits == 0:
         warnings.append("first three paragraphs may lack immediate disturbance")
+    if aiish_hits.get("not_x_but_y", 0) > 0:
+        warnings.append("AI-ish contrast pattern found: rewrite '不是X，而是Y' unless it is deliberate dialogue")
+    if aiish_total > aiish_hits.get("not_x_but_y", 0):
+        warnings.append("AI-ish explanatory phrasing found; replace lesson voice with action, image, dialogue, or consequence")
+    if dash_hits > 3:
+        warnings.append("too many decorative dashes; replace most with comma, period, colon, or scene action")
+    if ambiguous_opening_total > 0:
+        warnings.append(
+            "opening may create a false supernatural or impossible-action reading; add an immediate literal anchor or rewrite the hook"
+        )
 
     return report, warnings
 

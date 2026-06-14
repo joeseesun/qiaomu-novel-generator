@@ -17,7 +17,12 @@ REQUIRED_FILES = [
     "agents/interface.yaml",
     "agents/openai.yaml",
     "references/technique-matrix.md",
+    "references/source-research-remix.md",
+    "references/inspiration-remix-playbook.md",
+    "references/story-engine-library.md",
+    "references/prewrite-interview.md",
     "references/output-contract.md",
+    "references/anti-ai-language.md",
     "references/quality-checklist.md",
     "references/genre-quality-rubric.md",
     "references/evolution-loop.md",
@@ -109,6 +114,13 @@ def validate_evolution_docs() -> None:
     for term in ["Intent Hook", "Quality Hook", "Feedback Hook", "Evolution Hook"]:
         if term not in skill_text:
             fail(f"SKILL.md missing hook term: {term}")
+    for term in ["Source Research Hook", "Inspiration Remix Hook", "Story Engine Library Hook", "Prewrite Interview Hook", "Anti-AI Language Hook"]:
+        if term not in skill_text:
+            fail(f"SKILL.md missing new workflow hook: {term}")
+    source_research = read("references/source-research-remix.md")
+    for term in ["When To Search", "Research Intake Card", "Search-To-Remix Output", "Modern Organization Beat Cards"]:
+        if term not in source_research:
+            fail(f"source-research-remix.md missing required section: {term}")
     evolution = read("references/evolution-loop.md")
     for term in ["Do Not Overfit", "Rule Promotion", "Failure Taxonomy"]:
         if term not in evolution:
@@ -117,6 +129,22 @@ def validate_evolution_docs() -> None:
     for term in ["Reader Promise", "Universal Rubric", "Anti-Exposition Check"]:
         if term not in rubric:
             fail(f"genre-quality-rubric.md missing section: {term}")
+    engine_library = read("references/story-engine-library.md")
+    for term in ["Emotional Payoff Types", "High-Pressure Relationship Bank", "Core Plot Engines", "Escalation Ladders", "Chapter Or Episode Hook Bank"]:
+        if term not in engine_library:
+            fail(f"story-engine-library.md missing required section: {term}")
+    remix = read("references/inspiration-remix-playbook.md")
+    for term in ["Classic Beat Cards", "Style Signal Translation", "Remix Boundary", "马伯庸式", "食神式"]:
+        if term not in remix:
+            fail(f"inspiration-remix-playbook.md missing required term: {term}")
+    prewrite = read("references/prewrite-interview.md")
+    for term in ["可选调整", "你可以直接回复", "经典桥段启发", "小说如何吸引人", "确认后我再写正文"]:
+        if term not in prewrite:
+            fail(f"prewrite-interview.md missing required term: {term}")
+    anti_ai = read("references/anti-ai-language.md")
+    for term in ["不是X，而是Y", "Target: zero", "Replace explanation with action"]:
+        if term not in anti_ai:
+            fail(f"anti-ai-language.md missing required term: {term}")
 
 
 def main() -> None:
